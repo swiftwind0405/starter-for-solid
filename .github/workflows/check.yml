@@ -1,0 +1,29 @@
+name: Check
+
+on: pull_request
+
+jobs:
+  check:
+    name: lint and compile
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup
+        uses: ./.github/actions/setup
+
+      - name: Run lint
+        run: |
+          pnpm lint
+          pnpm format
+
+      - name: Run typecheck
+        run: pnpm typecheck
+
+      - name: Run test
+        run: pnpm test
+
+      - name: Run compile
+        run: pnpm build

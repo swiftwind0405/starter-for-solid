@@ -1,0 +1,27 @@
+name: Setup
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: 'package.json'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2.4.0
+      id: pnpm-install
+
+    - name: Setup pnpm cache
+      uses: actions/cache@v3
+      id: pnpm-cache
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
+
+    - name: Install dependencies
+      if: ${{ steps.pnpm-cache.outputs.cache-hit != 'true' }}
+      run: pnpm install
+      shell: bash

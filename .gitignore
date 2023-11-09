@@ -1,0 +1,13 @@
+dist
+storybook-static
+coverage
+
+# dependencies
+node_modules
+
+# IDEs and editors
+.idea
+.vscode
+
+# System Files
+.DS_Store
