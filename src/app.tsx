@@ -1,8 +1,12 @@
-import { Router } from '@solidjs/router'
+import { Router, Routes, Route } from '@solidjs/router'
 import { type Component } from 'solid-js'
+
+import { TodoView } from './pages/TodoView'
 
 export const App: Component = () => (
   <Router>
-    <div>Hello World!</div>
+    <Routes>
+      <Route path="/todo" component={TodoView} />
+    </Routes>
   </Router>
 )
